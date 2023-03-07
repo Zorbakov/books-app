@@ -4,6 +4,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
+import { ToastrModule } from 'ngx-toastr';
 import { BannerComponent } from "../../../../src/app/_shared/components/banner/banner.component";
 import { BooksEffect } from '../../../../src/app/_shared/stores/books/books.effect';
 import { bookReducer } from '../../../../src/app/_shared/stores/books/books.reducer';
@@ -24,6 +25,7 @@ describe('HomeComponent', () => {
             imports: [
                 FormsModule,
                 ReactiveFormsModule,
+                ToastrModule.forRoot(),
                 HttpClientModule,
                 StoreModule.forRoot({}),
                 StoreModule.forFeature('books', bookReducer),

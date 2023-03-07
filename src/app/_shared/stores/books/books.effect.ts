@@ -1,10 +1,8 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { select, Store } from "@ngrx/store";
-import { EMPTY, map, mergeMap, switchMap, withLatestFrom } from "rxjs";
-import {
-    addNewBookAPISuccess, fetchBooksAPISuccess, deleteBookAPISuccess, fetchBooksAPI, addNewBookAPI, deleteBookAPI
-} from './books.action';
+import { EMPTY, map, mergeMap, tap, withLatestFrom } from "rxjs";
+import { addNewBookAPI, addNewBookAPISuccess, deleteBookAPI, deleteBookAPISuccess, fetchBooksAPI, fetchBooksAPISuccess } from './books.action';
 import { selectBooks } from "./books.selector";
 import { BooksService } from "./books.service";
 
@@ -37,13 +35,8 @@ export class BooksEffect {
     addNewBook$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(addNewBookAPI),
-            switchMap((action) => {
-                return this.booksService.addBook(action.book).pipe(
-                    map((book) => {
-                        return addNewBookAPISuccess({ book })
-                    })
-                )
-            })
+            tap(({ book }) => this.booksService.addBook(book)),
+            map(({ book }) => addNewBookAPISuccess({ book }))
         )
     });
 
@@ -51,13 +44,8 @@ export class BooksEffect {
     deleteBook$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(deleteBookAPI),
-            switchMap((action) => {
-                return this.booksService.delete(action.id).pipe(
-                    map(() => {
-                        return deleteBookAPISuccess({ id: action.id })
-                    })
-                )
-            })
+            tap(({ id }) => this.booksService.delete(id)),
+            map(({ id }) => deleteBookAPISuccess({ id }))
         )
     })
 }

@@ -1,15 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
+import { ToastrService } from 'ngx-toastr';
+import { Subject, takeUntil } from 'rxjs';
 import { Book } from '../../../../src/app/_shared/stores/books/book';
-import { addNewBookAPI, deleteBookAPI, fetchBooksAPI } from '../../../../src/app/_shared/stores/books/books.action';
+import { addNewBookAPI, addNewBookAPISuccess, deleteBookAPI, fetchBooksAPI, deleteBookAPISuccess } from '../../../../src/app/_shared/stores/books/books.action';
 import { selectBooks } from '../../../../src/app/_shared/stores/books/books.selector';
 
 @Component({
     selector: 'app-home',
     templateUrl: './home.component.html'
 })
-export class HomeComponent {
+export class HomeComponent implements OnDestroy {
     public books: Book[] = [];
     public form: FormGroup = new FormGroup({
         title: new FormControl(''),
@@ -18,11 +21,37 @@ export class HomeComponent {
     });
 
     public submitted: boolean = false;
+    private destroyed$ = new Subject<boolean>();
 
     constructor(
         private formBuilder: FormBuilder,
-        private store: Store
-    ) { }
+        private store: Store,
+        private toastr: ToastrService,
+        private actions$: Actions
+    ) {
+        actions$.pipe(
+            ofType(addNewBookAPISuccess),
+            takeUntil(this.destroyed$)
+        )
+            .subscribe(({ book }) => {
+                this.resetForm();
+                this.toastr.success(`Book ${book.title} has been added to the library`);
+            });
+
+        actions$.pipe(
+            ofType(deleteBookAPISuccess),
+            takeUntil(this.destroyed$)
+        )
+            .subscribe(() => {
+                this.getAllBooks();
+                this.toastr.success(`Book has been deleted successfully`);
+            });
+    }
+
+    ngOnDestroy(): void {
+        this.destroyed$.next(true);
+        this.destroyed$.complete();
+    }
 
     ngOnInit(): void {
         this.initForm();
@@ -47,7 +76,7 @@ export class HomeComponent {
         };
 
         this.store.dispatch(addNewBookAPI({ book: newBook }));
-        this.resetForm();
+
     }
 
     /**
@@ -64,7 +93,6 @@ export class HomeComponent {
      */
     public deleteBook(id: number): void {
         this.store.dispatch(deleteBookAPI({ id }));
-        this.getAllBooks();
     }
 
     /**
