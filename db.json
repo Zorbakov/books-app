@@ -1,0 +1,64 @@
+{
+  "books": [
+    {
+      "id": 1,
+      "title": "Da Vinci Code, The",
+      "author": "Brown, Dan",
+      "publication_date": "2003-03-18"
+    },
+    {
+      "id": 2,
+      "title": "Harry Potter and the Deathly Hallows",
+      "author": "Rowling, J.K.",
+      "publication_date": "2007-07-21"
+    },
+    {
+      "id": 3,
+      "title": "Harry Potter and the Philosopher's Stone",
+      "author": "Rowling, J.K.",
+      "publication_date": "1997-06-26"
+    },
+    {
+      "id": 4,
+      "title": "Harry Potter and the Order of the Phoenix",
+      "author": "Rowling, J.K.",
+      "publication_date": "2003-06-21"
+    },
+    {
+      "id": 5,
+      "title": "Fifty Shades of Grey",
+      "author": "James, E.L.",
+      "publication_date": "2011-05-25"
+    },
+    {
+      "id": 6,
+      "title": "Harry Potter and the Goblet of Fire",
+      "author": "Rowling, J.K.",
+      "publication_date": "2000-07-08"
+    },
+    {
+      "id": 7,
+      "title": "Twilight",
+      "author": "Meyer, Stephenie",
+      "publication_date": "2005-10-05"
+    },
+    {
+      "id": 8,
+      "title": "Girl with the Dragon Tattoo, The:Millennium Trilogy",
+      "author": "Larsson, Stieg",
+      "publication_date": "2005-08-01"
+    },
+    {
+      "id": 9,
+      "title": "Lost Symbol, The",
+      "author": "Brown, Dan",
+      "publication_date": "2009-09-15"
+    },
+    {
+      "id": 10,
+      "title": "New Moon",
+      "author": "Meyer, Stephenie",
+      "publication_date": "2006-08-21"
+    }
+  ]
+}

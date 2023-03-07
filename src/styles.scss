@@ -1,0 +1,15 @@
+/* You can add global styles to this file, and also import other style files */
+.banner {
+    min-height: 297px;
+    background: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)),
+        url('assets/books-wallpaper.jpg')
+}
+
+.card {
+    position: relative;
+    .btn-close {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+    }
+}

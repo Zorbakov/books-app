@@ -1,0 +1,82 @@
+<app-banner [title]="'Books in style'" [subtitle]="'Search for the ultimate story that excites you!'"></app-banner>
+
+<section class="bg-light pt-3 pb-5">
+    <div class="container px-4 px-lg-5 mt-5">
+        <div class="row" style="margin-top: -100px">
+            <div class="col-12 mb-3">
+                <div class="card border-0 shadow-sm py-3 px-4" style="min-height: 150px">
+                    <h2 class="h4">Add new book</h2>
+                    <hr class="my-1" style="opacity: 15%">
+
+                    <div class="card-body ps-0">
+                        <form [formGroup]="form" (ngSubmit)="submit()" id="form">
+                            <div class="d-flex flex-md-row flex-column">
+                                <div class="form-group mb-md-0 mb-2 w-100">
+                                    <label>Title</label>
+                                    <input type="text" formControlName="title" class="form-control"
+                                        placeholder="Add a title..."
+                                        [ngClass]="{ 'is-invalid': submitted && f['title'].errors }" />
+
+                                    <div *ngIf="submitted && f['title'].errors" class="invalid-feedback">
+                                        <div *ngIf="f['title'].errors['required']">Title is required</div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group mx-md-4 mx-0 mb-md-0 mb-2 w-100">
+                                    <label>Author</label>
+                                    <input type="text" formControlName="author" class="form-control"
+                                        placeholder="Add an author..."
+                                        [ngClass]="{ 'is-invalid': submitted && f['author'].errors }" />
+
+                                    <div *ngIf="submitted && f['author'].errors" class="invalid-feedback">
+                                        <div *ngIf="f['author'].errors['required']">Author is required</div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group mb-md-0 mb-2 w-100">
+                                    <label>Publication date</label>
+                                    <input type="date" formControlName="publication_date" class="form-control"
+                                        [ngClass]="{ 'is-invalid': submitted && f['publication_date'].errors }" />
+
+                                    <div *ngIf="submitted && f['publication_date'].errors" class="invalid-feedback">
+                                        <div *ngIf="f['publication_date'].errors['required']">Publication date is
+                                            required
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group mt-md-3 mt-2">
+                                <button type="submit" class="btn btn-primary me-3">Add book</button>
+                                <button type="button" (click)="resetForm()" class="btn btn-warning float-right">
+                                    Reset
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-12 mb-3" *ngFor="let book of books">
+                <div class="card border-0 shadow-sm">
+                    <button type="button" class="btn-close" aria-label="Close" (click)="deleteBook(book.id)"></button>
+
+                    <div class="card-body d-flex flex-row">
+                        <div class="d-flex flex-column w-25">
+                            <img class="card-img w-100" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg"
+                                alt="..." />
+                        </div>
+
+                        <div class="d-flex flex-column px-5 justify-content-center align-items-start w-75">
+                            <h5 class="card-title">{{ book.title }}</h5>
+                            <p class="card-text mb-0">Author: {{ book.author }}</p>
+                            <p class="card-text">Publication date: {{ book.publication_date || '3/6/2023'}}</p>
+                            <a href="#" class="btn btn-primary d-inline-block">View book</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
